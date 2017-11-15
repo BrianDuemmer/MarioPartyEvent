@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="271.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dystify.marioPartyEvent.MainWindowController">
+   <children>
+      <BorderPane layoutX="323.0" layoutY="153.0" prefHeight="469.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#closeDisplay" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                        <!--  <Menu mnemonicParsing="false" text="Set place...">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#setPlaceFirst" text="first" />
+                              <MenuItem mnemonicParsing="false" onAction="#setPlaceSecond" text="second" />
+                              <MenuItem mnemonicParsing="false" onAction="#setPlaceThird" text="third" />
+                              <MenuItem mnemonicParsing="false" onAction="#setPlaceFourth" text="fourth" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Coins">
+                          <items>
+                              <MenuItem mnemonicParsing="false" onAction="#remove50Coins" text="remove 50 coins" />
+                              <MenuItem mnemonicParsing="false" onAction="#add50Coins" text="add 50 coins" />
+                              <MenuItem mnemonicParsing="false" onAction="#add5Coins" text="add 5 coins" />
+                              <MenuItem mnemonicParsing="false" onAction="#remove5Coins" text="remove 5 coins" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Move">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#moveUp" text="up" />
+                              <MenuItem mnemonicParsing="false" onAction="#moveDown" text="down" />
+                              <MenuItem mnemonicParsing="false" onAction="#moveLeft" text="left" />
+                              <MenuItem mnemonicParsing="false" onAction="#moveRight" text="right" />
+                              <MenuItem mnemonicParsing="false" onAction="#moveDiagUR" text="diag up right" /> 
+                          </items>
+                        </Menu> -->
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />
+                  <ToggleButton fx:id="fadeBtn" mnemonicParsing="false" onAction="#onFadeBtn" text="Fade out..." />
+                  <Button mnemonicParsing="false" onAction="#testMinigame" text="Test minigame" />
+               </children>
+               <padding>
+                  <Insets left="20.0" top="10.0" />
+               </padding></VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
