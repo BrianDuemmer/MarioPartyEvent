@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="MarioPartyEvent.jnlp">
+  <information>
+    <title>MarioPartyEvent</title>
+    <vendor>TheDuemmer</vendor>
+    <description>MarioPartyEvent</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="MarioPartyEvent.jar" size="10405897" download="eager" />
+    <jar href="libs\junit.jar" size="314932" download="eager" />
+    <jar href="libs\mysql-connector-java-5.1.44-bin.jar" size="999635" download="eager" />
+    <jar href="libs\nanohttpd-webserver-2.1.1.jar" size="49405" download="eager" />
+    <jar href="libs\org.apiguardian_1.0.0.v20170910-2246.jar" size="16055" download="eager" />
+    <jar href="libs\org.hamcrest.core_1.3.0.v201303031735.jar" size="55198" download="eager" />
+    <jar href="libs\org.junit.jupiter.api_5.0.0.v20170910-2246.jar" size="98178" download="eager" />
+    <jar href="libs\org.junit.jupiter.engine_5.0.0.v20170910-2246.jar" size="140194" download="eager" />
+    <jar href="libs\org.junit.jupiter.migrationsupport_5.0.0.v20170910-2246.jar" size="43652" download="eager" />
+    <jar href="libs\org.junit.jupiter.params_5.0.0.v20170910-2246.jar" size="491948" download="eager" />
+    <jar href="libs\org.junit.platform.commons_1.0.0.v20170910-2246.jar" size="80393" download="eager" />
+    <jar href="libs\org.junit.platform.engine_1.0.0.v20170910-2246.jar" size="110255" download="eager" />
+    <jar href="libs\org.junit.platform.launcher_1.0.0.v20170910-2246.jar" size="72857" download="eager" />
+    <jar href="libs\org.junit.platform.runner_1.0.0.v20170910-2246.jar" size="33586" download="eager" />
+    <jar href="libs\org.junit.platform.suite.api_1.0.0.v20170910-2246.jar" size="30069" download="eager" />
+    <jar href="libs\org.junit.vintage.engine_4.12.0.v20170910-2246.jar" size="74664" download="eager" />
+    <jar href="libs\org.opentest4j_1.0.0.v20170910-2246.jar" size="20927" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="com.dystify.marioPartyEvent.Main"  name="MarioPartyEvent" />
+  <update check="background"/>
+</jnlp>

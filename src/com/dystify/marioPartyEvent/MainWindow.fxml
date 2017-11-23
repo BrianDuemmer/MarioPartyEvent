@@ -2,66 +2,95 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="271.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dystify.marioPartyEvent.MainWindowController">
+<AnchorPane prefHeight="288.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dystify.marioPartyEvent.MainWindowController">
    <children>
       <BorderPane layoutX="323.0" layoutY="153.0" prefHeight="469.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#closeDisplay" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                        <!--  <Menu mnemonicParsing="false" text="Set place...">
+                <Menu mnemonicParsing="false" text="Command">
+                     <items>
+                        <Menu mnemonicParsing="false" text="Direction">
                           <items>
-                            <MenuItem mnemonicParsing="false" onAction="#setPlaceFirst" text="first" />
-                              <MenuItem mnemonicParsing="false" onAction="#setPlaceSecond" text="second" />
-                              <MenuItem mnemonicParsing="false" onAction="#setPlaceThird" text="third" />
-                              <MenuItem mnemonicParsing="false" onAction="#setPlaceFourth" text="fourth" />
+                            <MenuItem mnemonicParsing="false" onAction="#injectDirectionUp" text="Up" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectDirectionDown" text="Down" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectDirectionLeft" text="Left" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectDirectionRight" text="Right" />
                           </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Coins">
+                        <Menu mnemonicParsing="false" text="Color">
                           <items>
-                              <MenuItem mnemonicParsing="false" onAction="#remove50Coins" text="remove 50 coins" />
-                              <MenuItem mnemonicParsing="false" onAction="#add50Coins" text="add 50 coins" />
-                              <MenuItem mnemonicParsing="false" onAction="#add5Coins" text="add 5 coins" />
-                              <MenuItem mnemonicParsing="false" onAction="#remove5Coins" text="remove 5 coins" />
+                            <MenuItem mnemonicParsing="false" onAction="#injectColorRed" text="Red" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectColorBlue" text="Blue" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectColorGreen" text="Green" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectColorYellow" text="Yellow" />
+                              <MenuItem mnemonicParsing="false" onAction="#injectColorPreset1" text="Preset 1" />
                           </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Move">
+                        <Menu mnemonicParsing="false" text="Misc.">
                           <items>
-                            <MenuItem mnemonicParsing="false" onAction="#moveUp" text="up" />
-                              <MenuItem mnemonicParsing="false" onAction="#moveDown" text="down" />
-                              <MenuItem mnemonicParsing="false" onAction="#moveLeft" text="left" />
-                              <MenuItem mnemonicParsing="false" onAction="#moveRight" text="right" />
-                              <MenuItem mnemonicParsing="false" onAction="#moveDiagUR" text="diag up right" /> 
+                            <MenuItem mnemonicParsing="false" onAction="#injectWinner" text="Winner" />
                           </items>
-                        </Menu> -->
-                  </items>
+                        </Menu>
+                     </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Minigame">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#testMinigame" text="Test Minigame" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </top>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="127.0" prefWidth="279.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />
-                  <ToggleButton fx:id="fadeBtn" mnemonicParsing="false" onAction="#onFadeBtn" text="Fade out..." />
-                  <Button mnemonicParsing="false" onAction="#testMinigame" text="Test minigame" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="Team Select:" />
+                        <ChoiceBox fx:id="rollTeamSelector" prefHeight="25.0" prefWidth="195.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="204.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#injectRoll" text="Inject Roll" />
+                        <Label text="Roll Number:" />
+                        <TextField fx:id="rollNumField" prefHeight="25.0" prefWidth="117.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />
+                        <ToggleButton fx:id="fadeBtn" mnemonicParsing="false" onAction="#onFadeBtn" text="Fade out..." />
+                     </children>
+                     <padding>
+                        <Insets top="40.0" />
+                     </padding>
+                  </HBox>
+                  <CheckBox fx:id="endGameCheckbox" mnemonicParsing="false" onAction="#onEndGameSet" text="End game after this turn?" />
+                  <Label fx:id="next4pMinigameLbl" text="Next 4 player Minigame:">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="nextspMinigameLbl" layoutX="30.0" layoutY="202.0" text="Next singleplayer Minigame:" />
+                  <Label fx:id="nextBowserMinigameLbl" layoutX="30.0" layoutY="224.0" text="Next Bowser Minigame:" />
                </children>
                <padding>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                </padding></VBox>
          </center>
       </BorderPane>

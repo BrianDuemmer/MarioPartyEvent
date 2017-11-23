@@ -1,0 +1,26 @@
+.label {
+	-fx-font-family: "New Super Mario Font (Mario Party 9)";
+	-fx-font-size: 16pt;
+}
+
+
+.label .text {
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+}
+
+
+.text-area {
+	-fx-font-family: "New Super Mario Font (Mario Party 9)";
+	-fx-font-size: 16pt;	
+}
+
+.text-area .text {
+	-fx-stroke: white;
+    -fx-stroke-width: 2px;
+    -fx-text-alignment:center;
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color: transparent ;
+}
