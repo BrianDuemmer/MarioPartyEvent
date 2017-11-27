@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,6 +15,7 @@ import com.dystify.marioPartyEvent.control2.CommandReader;
 import com.dystify.marioPartyEvent.graphic.GameBoard;
 import com.dystify.marioPartyEvent.graphic.Place;
 import com.dystify.marioPartyEvent.graphic.Player;
+import com.dystify.marioPartyEvent.graphic.ScoreBoard;
 import com.dystify.marioPartyEvent.graphic.SpriteState;
 import com.dystify.marioPartyEvent.minigame.AbstractMinigame;
 import com.dystify.marioPartyEvent.minigame.CurtainCall;
@@ -37,7 +39,9 @@ import com.dystify.marioPartyEvent.util.Util;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -126,33 +130,7 @@ public class DisplayController
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 
-		// init players
-		luigi = new Player("Luigi", "/luigi", Color.RED);
-		mario = new Player("Mario", "/mario", Color.CORNFLOWERBLUE);
-		yoshi = new Player("Yoshi", "/yoshi", Color.GREEN);
-		peach = new Player("Peach", "/peach", Color.GOLD);
-
-		bowser = new Player("Bowser");
-		bowser.initShadow("/bowser");
-		bowser.setSprite(SpriteState.STILL_RIGHT);
-		bowser.setSpritePos(25, 510);
-
-		toad = new Player("Toad");
-		toad.initShadow("/toad");
-		toad.setSprite(SpriteState.STILL_LEFT);
-		toad.setSpritePos(1125, 420);
-
-		// setup the scoreboards
-		luigi.setScoreboardPos(-405, -398);
-		mario.setScoreboardPos(453, -398);
-		yoshi.setScoreboardPos(-409, 381);
-		peach.setScoreboardPos(451, 383);
-
-		// add to the pane
-		rootPane.getChildren().addAll(bowser.getSprite(), toad.getSprite(), yoshi.getSprite(), luigi.getSprite(), peach.getSprite(), mario.getSprite());
-		rootPane.getChildren().addAll(luigi.getSb(), mario.getSb(), yoshi.getSb(), peach.getSb());
-
-
+		initPlayers();
 
 		// set these to allow dragging and dropping the window
 		rootPane.setOnMousePressed((MouseEvent e) -> {
@@ -178,13 +156,12 @@ public class DisplayController
 		rootPane.getChildren().addAll(fadeOutImg, textBox);
 
 		initMinigames();
-		TurnSequencer();
 	}
 
 
 
 
-	public void initMinigames() {
+	private void initMinigames() {
 		// four player
 		fourPlayerMiniGames = new CircularLinkedList<>();
 		fourPlayerMiniGames.add(new EndOfTheLine());
@@ -268,7 +245,30 @@ public class DisplayController
 
 			m.playGame(g, this);
 		}).start();
-
+	}
+	
+	
+	/**
+	 * Tests every single text demo sequentially
+	 */
+	public void testTextDemos() 
+	{
+		new Thread(() -> {
+			for(AbstractMinigame p : fourPlayerMiniGames) {
+				System.err.println(p.getName());
+				p.tempTestTxtDemo(this);
+			}
+			
+			for(AbstractMinigame p : soloMinigames) {
+				System.err.println(p.getName());
+				p.tempTestTxtDemo(this);
+			}
+			
+			for(AbstractMinigame p : BowserMiniGames) {
+				System.err.println(p.getName());
+				p.tempTestTxtDemo(this);
+			}
+		}).start();
 	}
 
 
@@ -364,27 +364,8 @@ public class DisplayController
 	public void TurnSequencer() 
 	{
 		Thread t = new Thread(()->{
-			// set everyone to starting spaces
-			AbstractSpace start  = board.getSpaces().get(1);
-			int x = start.getXPos();
-			int y = start.getYPos();
-
 			setDialogText("Roll for each character, to\ndetermine the turn order!", false, -1);
-
-			luigi.setCurrSpace(start);
-			luigi.setSpritePos(x, y);
-
-			mario.setCurrSpace(start);
-			mario.setSpritePos(x, y);
-
-			peach.setCurrSpace(start);
-			peach.setSpritePos(x, y);
-
-			yoshi.setCurrSpace(start);
-			yoshi.setSpritePos(x, y);
-			//			yoshi.addCoins(21);
-
-
+			
 			// sort them by their dice rolls
 			List<SortablePlayer> sortablePlayer = new ArrayList<>();
 			Map<Player, RollCommand>  rolls = CommandReader.inst().pollAllForCommand(Arrays.asList(luigi, mario, peach, yoshi), new RollCommand(0), -1);
@@ -413,9 +394,11 @@ public class DisplayController
 
 			setDialogText(playerList.toString(), false, 2000);
 
-			// play the game, infinitely for now
+			
+			// play the game, until it's flagged to stop
 			while(true) {
 				for(Player p : players) {
+					orderPlayersLayers();
 					setDialogText("Roll, " +p.getName()+ "!", false, -1);
 					takeTurn(p);
 				}
@@ -425,6 +408,7 @@ public class DisplayController
 			}
 			fadeTo(1, 1500);
 
+			
 			List<Player> winners = new ArrayList<>();
 			for(Player p : players)
 				if(p.getCurrRank() == Place.FIRST)
@@ -463,6 +447,92 @@ public class DisplayController
 		t.setDaemon(true);
 		t.setName("Game Thread");
 		t.start();
+	}
+	
+	
+	
+	/**
+	 * orders the players to the correct layers, based on vertical position.
+	 * Removes all player objects, orders them, and puts them back behind the last
+	 * ScoreBoard object
+	 */
+	private void orderPlayersLayers() {
+		Platform.runLater(()->{
+			ObservableList<Node> allNodes = rootPane.getChildren();
+			allNodes.removeAll(mario.getSprite(), luigi.getSprite(), peach.getSprite(), yoshi.getSprite(), bowser.getSprite(), toad.getSprite());
+			List<Player> players = Arrays.asList(mario, luigi, peach, yoshi, bowser, toad);
+			
+			Collections.sort(players, new Comparator<Player>() { // sort by the y-coordinate of the sprite. Higher y-coords should be on top, therefore have higher indexes
+				@Override public int compare(Player o1, Player o2) {
+					return o1.getCurrY() - o2.getCurrY();
+				}
+			});
+			
+			List<Node> plNodes = new ArrayList<>();
+			for(Player p : players)
+				plNodes.add(p.getSprite());
+			
+			int sbIdx = 0;
+			for(; sbIdx<allNodes.size(); sbIdx++)
+				if(allNodes.get(sbIdx) instanceof ScoreBoard)
+					break;
+			
+			// add all of them in before any scoreboards
+			allNodes.addAll(sbIdx, plNodes);
+		});
+	}
+
+
+
+
+	private void initPlayers() {
+		// init players
+		luigi = new Player("Luigi", "/luigi", Color.RED);
+		mario = new Player("Mario", "/mario", Color.CORNFLOWERBLUE);
+		yoshi = new Player("Yoshi", "/yoshi", Color.GREEN);
+		peach = new Player("Peach", "/peach", Color.GOLD);
+
+		bowser = new Player("Bowser");
+		bowser.initShadow("/bowser");
+		bowser.setSprite(SpriteState.STILL_RIGHT);
+		bowser.setSpritePos(25, 510);
+
+		toad = new Player("Toad");
+		toad.initShadow("/toad");
+		toad.setSprite(SpriteState.STILL_LEFT);
+		toad.setSpritePos(1125, 420);
+
+		// setup the scoreboards
+		luigi.setScoreboardPos(-405, -398);
+		mario.setScoreboardPos(453, -398);
+		yoshi.setScoreboardPos(-409, 381);
+		peach.setScoreboardPos(451, 383);
+		
+
+		// add to the pane
+		rootPane.getChildren().addAll(bowser.getSprite(), toad.getSprite(), yoshi.getSprite(), luigi.getSprite(), peach.getSprite(), mario.getSprite());
+		rootPane.getChildren().addAll(luigi.getSb(), mario.getSb(), yoshi.getSb(), peach.getSb());
+		
+		// set everyone to starting spaces
+		AbstractSpace start  = board.getSpaces().get(1);
+		int x = start.getXPos();
+		int y = start.getYPos();
+
+		
+
+		luigi.setCurrSpace(start);
+		luigi.setSpritePos(x, y);
+
+		mario.setCurrSpace(start);
+		mario.setSpritePos(x, y);
+
+		peach.setCurrSpace(start);
+		peach.setSpritePos(x, y);
+
+		yoshi.setCurrSpace(start);
+		yoshi.setSpritePos(x, y);
+		
+		orderPlayersLayers();
 	}
 
 
@@ -543,20 +613,48 @@ public class DisplayController
 	}
 	
 	
-	
-	public String getNext4pMinigame() {
-		String s = fourPlayerMiniGames.peek().getName();
-		return s == null ? "" : s;
+	/**
+	 * 
+	 * @param advance if true, pulls the minigame out, to be played. If false, just peeks at it
+	 * @return
+	 */
+	public AbstractMinigame getNext4pMinigame(boolean advance) {
+		if(advance)
+			return fourPlayerMiniGames.poll();
+		else
+			return fourPlayerMiniGames.peek();
 	}
 	
-	public String getNextspMinigame() {
-		String s = soloMinigames.peek().getName();
-		return s == null ? "" : s;
+	/**
+	 * 
+	 * @param advance if true, pulls the minigame out, to be played. If false, just peeks at it
+	 * @return
+	 */
+	public AbstractMinigame getNextspMinigame(boolean advance) {
+		if(advance)
+			return soloMinigames.poll();
+		else
+			return soloMinigames.peek();
 	}
 	
-	public String getNextBowserMinigame() {
-		String s = BowserMiniGames.peek().getName();
-		return s == null ? "" : s;
+	
+	/**
+	 * 
+	 * @param advance if true, pulls the minigame out, to be played. If false, just peeks at it
+	 * @return
+	 */
+	public AbstractMinigame getNextBowserMinigame(boolean advance) {
+		if(advance)
+			return BowserMiniGames.poll();
+		else
+			return BowserMiniGames.peek();
+	}
+
+
+
+
+	public Stage getStage() {
+		return stage;
 	}
 
 }

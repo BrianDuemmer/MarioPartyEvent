@@ -9,7 +9,7 @@ public class SpotTheDifference extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Spot the Difference", false, 2500);
+		disp.setDialogText("Find the differences in the\npictures, each difference\nis one point", false, 2500);
 		try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 

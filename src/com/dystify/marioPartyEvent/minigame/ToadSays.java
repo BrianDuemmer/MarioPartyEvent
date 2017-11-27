@@ -9,7 +9,7 @@ public class ToadSays extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Toad Says", false, 2500);
+		disp.setDialogText("Pay attention to Toad, only\ndo what he asks when\nhe says “Toad Says”", false, 2500);
 		try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 

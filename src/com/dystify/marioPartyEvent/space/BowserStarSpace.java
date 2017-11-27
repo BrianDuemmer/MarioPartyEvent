@@ -1,6 +1,11 @@
 package com.dystify.marioPartyEvent.space;
 
+import java.util.Arrays;
+
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
+import com.dystify.marioPartyEvent.control2.CommandReader;
+import com.dystify.marioPartyEvent.control2.Filter;
 import com.dystify.marioPartyEvent.graphic.Player;
 
 public class BowserStarSpace extends AbstractSpace 
@@ -29,16 +34,18 @@ public class BowserStarSpace extends AbstractSpace
 			try { Thread.sleep(1500); }catch(Exception e) {}
 			
 			if(c.getNumCoins() >= 20) {
-//				disp.setDialogText("!choose yes or no", true, 3000);
-//				String resp = Comm.getInst().getChoice(20000, ChooseType.YESNO, c.getFirstLetter());
-//				if(resp.trim().equalsIgnoreCase("yes")) {
-//					c.addCoins(-20);
-//					c.addStars(1);
-//				}
+				disp.setDialogText(String.format("%s's team: Vote !yes or !no", c.getName()), true, -1);
+				String resp = CommandReader.inst().voteOneTeam(c, Filter.FILTER_YESNO, Main.chatVoteMillis).replaceAll("!", "");
+				if(resp.trim().equalsIgnoreCase("yes")) {
+					c.addCoins(-20);
+					c.addStars(1);
+				}
 			} else {
-				disp.setDialogText("Oh... looks like you can't\nafford to buy a star.", true, 3000);
+				disp.setDialogText("Oh... looks like you can't\nafford to buy a star. !OOF", false, 3000);
 				try { Thread.sleep(1500); }catch(Exception e) {}
 			}
+		} else { // play a bowser game, all characters
+			disp.getNextBowserMinigame(true).playGame(Arrays.asList(disp.getMario(), disp.getLuigi(), disp.getPeach(), disp.getYoshi()), disp);
 		}
 		return c;
 	}

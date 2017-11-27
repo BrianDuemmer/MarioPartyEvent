@@ -9,8 +9,7 @@ public class PoundPeril extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Pound Peril", false, 2500);
-		try { Thread.sleep(2500); } catch (InterruptedException e) {}
+		disp.setDialogText("Use commands !1 - !12, captains! One will hold victory, the\nothers will slow you down!", false, 2500); try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 
 	@Override

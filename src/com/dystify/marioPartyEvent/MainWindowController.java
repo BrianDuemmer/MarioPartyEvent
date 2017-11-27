@@ -24,7 +24,6 @@ import javafx.scene.control.ToggleButton;
 public class MainWindowController 
 {
 	private DisplayController dc;
-	@FXML ToggleButton fadeBtn;
 	@FXML TextField rollNumField;
 	@FXML ChoiceBox<String> rollTeamSelector;
 	@FXML CheckBox endGameCheckbox;
@@ -58,8 +57,7 @@ public class MainWindowController
 
 	@FXML void openDisplay(ActionEvent event) {
 		System.out.println("open");
-		dc = new DisplayController();
-		dc.show();
+		dc.TurnSequencer();
 	}
 
 
@@ -67,23 +65,11 @@ public class MainWindowController
 		System.out.println("close");
 		dc.hide();
 	}
-
-
-	@FXML void onFadeBtn(ActionEvent event) {
-		boolean hit = fadeBtn.isSelected();
-		//		new Thread(()->{
-		//			dc.swapBowserToad();
-		//			dc.getBoard().invertStarSpaces();
-		//		}).start();
-
-		if(hit) {
-			fadeBtn.setText("Fade out...");
-			dc.fadeTo(0, 2000);
-		} else {
-			fadeBtn.setText("Fade in");
-			dc.fadeTo(1, 2000);
-		}
-	}
+	
+	
+	@FXML void fadeOut(ActionEvent event) { dc.fadeTo(1, 2000); }
+	@FXML void fadeIn(ActionEvent event) { dc.fadeTo(0, 2000); }
+	@FXML void testTextDemos(ActionEvent event) { dc.testTextDemos(); }
 
 
 
@@ -445,9 +431,9 @@ public class MainWindowController
 			{
 				if(dc != null) {
 					Platform.runLater(() -> {
-						String p4txt = "Next 4 player Minigame: " +dc.getNext4pMinigame();
-						String sptxt = "Next singleplayer Minigame: " +dc.getNextspMinigame();
-						String btxt = "Next Bowser Minigame: " +dc.getNext4pMinigame();
+						String p4txt = "Next 4 player Minigame: " +dc.getNext4pMinigame(false).getName();
+						String sptxt = "Next singleplayer Minigame: " +dc.getNextspMinigame(false).getName();
+						String btxt = "Next Bowser Minigame: " +dc.getNextBowserMinigame(false).getName();
 	
 						next4pMinigameLbl.setText(p4txt);
 						nextspMinigameLbl.setText(sptxt);
@@ -459,6 +445,10 @@ public class MainWindowController
 			500, 
 			TimeUnit.MILLISECONDS
 		);
+		
+		dc = new DisplayController();
+		dc.getStage().toBack();
+		dc.show();
 	}
 
 

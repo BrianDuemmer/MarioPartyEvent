@@ -9,7 +9,7 @@ public class RoleCall extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Role Call", false, 2500);
+		disp.setDialogText("Count each object on the screen,\ntag the game host with\nthe right answer", false, 2500);
 		try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 

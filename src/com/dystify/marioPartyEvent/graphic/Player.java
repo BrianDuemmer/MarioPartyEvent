@@ -25,6 +25,8 @@ import javafx.util.Duration;
  */
 public class Player
 {
+	private static final double SPRITE_SCL = 2;
+	
 	// allows us to block until walk() finishes
 	private Object walkLock = new Object();
 	
@@ -39,7 +41,7 @@ public class Player
 	private int currX;
 	private int currY;
 	
-	private int pxPerSecond = 125;
+	private int pxPerSecond = 223;
 	private double spriteXOff = 0;
 	private double spriteYOff = 0;
 	
@@ -279,6 +281,8 @@ public class Player
 	public ImageView setSprite(SpriteState sprite) {
 		Image i = Util.loadImage(resourceDir +"/"+ sprite);
 		playerSprite.setImage(i);
+		playerSprite.setScaleX(SPRITE_SCL);
+		playerSprite.setScaleY(SPRITE_SCL);
 		
 		spriteYOff = i.getHeight()-5;
 		spriteXOff = i.getWidth() / 2;

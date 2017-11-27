@@ -9,7 +9,7 @@ public class CurtainCall extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Curtain Call", false, 2500);
+		disp.setDialogText("Pay attention to the characters\nin line, and answer the\nhosts' questions correctly!", false, 2500);
 		try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 

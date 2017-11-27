@@ -17,7 +17,7 @@ public class RollOfTheDiceMulti extends AbstractMinigame
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("text demo for roll of the dice", false, 1000);
+		disp.setDialogText("Roll the Dice and try to get\nthe highest number,\ncaptains use !roll to roll", false, 1000);
 		try { Thread.sleep(1000); }catch(Exception e) {}
 	}
 

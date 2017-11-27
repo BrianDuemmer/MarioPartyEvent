@@ -23,8 +23,7 @@ public class MerryGoChomp extends AbstractMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("merry go chomp text demo", false, 2500);
-		try { Thread.sleep(2500); }catch(Exception e) {}
+		disp.setDialogText("Choose a color for your team,\neach color will be\neliminated after each round.", false, 4000); try { Thread.sleep(4000); } catch (InterruptedException e) {}
 	}
 
 	@Override

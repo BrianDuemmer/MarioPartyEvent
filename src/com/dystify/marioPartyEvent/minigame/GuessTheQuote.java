@@ -9,8 +9,7 @@ public class GuessTheQuote extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Text demo for Guess the Quote", false, 2500);
-		try { Thread.sleep(2500); } catch (InterruptedException e) {}
+		disp.setDialogText("Determine the character that\nmatches with the\nquote that appears", false, 2500); try { Thread.sleep(2500); } catch (InterruptedException e) {}
 	}
 
 	@Override

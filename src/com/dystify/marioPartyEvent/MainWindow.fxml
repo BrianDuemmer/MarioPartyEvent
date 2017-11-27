@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -15,7 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="288.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dystify.marioPartyEvent.MainWindowController">
+<AnchorPane prefHeight="288.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dystify.marioPartyEvent.MainWindowController">
    <children>
       <BorderPane layoutX="323.0" layoutY="153.0" prefHeight="469.0" prefWidth="789.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -50,6 +54,7 @@
                   <Menu mnemonicParsing="false" text="Minigame">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#testMinigame" text="Test Minigame" />
+                        <MenuItem mnemonicParsing="false" onAction="#testTextDemos" text="Test Text Demos" />
                     </items>
                   </Menu>
               </menus>
@@ -61,20 +66,21 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="Team Select:" />
-                        <ChoiceBox fx:id="rollTeamSelector" prefHeight="25.0" prefWidth="195.0" />
+                        <ChoiceBox fx:id="rollTeamSelector" prefHeight="25.0" prefWidth="209.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="204.0" spacing="5.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#injectRoll" text="Inject Roll" />
                         <Label text="Roll Number:" />
-                        <TextField fx:id="rollNumField" prefHeight="25.0" prefWidth="117.0" />
+                        <TextField fx:id="rollNumField" prefHeight="24.0" prefWidth="137.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />
-                        <ToggleButton fx:id="fadeBtn" mnemonicParsing="false" onAction="#onFadeBtn" text="Fade out..." />
+                        <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />
+                        <Button mnemonicParsing="false" onAction="#fadeOut" text="Fade Game Out" />
+                        <Button mnemonicParsing="false" onAction="#fadeIn" text="Fade Game In" />
                      </children>
                      <padding>
                         <Insets top="40.0" />

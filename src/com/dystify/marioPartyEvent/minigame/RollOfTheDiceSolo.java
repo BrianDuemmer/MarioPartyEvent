@@ -14,7 +14,7 @@ public class RollOfTheDiceSolo extends AbstractMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("text demo for roll of the dice solo", false, 1000);
+		disp.setDialogText("Roll three Dice and attempt to\nget a total lower than 15,\nuse !roll to roll.", false, 1000);
 		try { Thread.sleep(1000); }catch(Exception e) {}
 
 	}

@@ -15,9 +15,9 @@ import com.dystify.marioPartyEvent.control2.command.ChatCommand;
 import com.dystify.marioPartyEvent.graphic.Player;
 import com.dystify.marioPartyEvent.util.Util;
 
-public class EndOfTheLine extends AbstractMinigame {
+public class BowserEndOfTheLine extends AbstractBowserMinigame {
 
-	public EndOfTheLine() {
+	public BowserEndOfTheLine() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -29,10 +29,10 @@ public class EndOfTheLine extends AbstractMinigame {
 
 	}
 
-	@Override public String getName() { return "End of the Line"; }
+	@Override public String getName() { return "Bowser's End of the Line"; }
 
 	@Override
-	public int getTotalPizeAmt() { return 20; }
+	public int getTotalPizeAmt() { return -10; }
 
 	@Override
 	public boolean shouldFadeOut() { return false; }
