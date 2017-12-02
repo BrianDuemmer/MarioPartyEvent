@@ -27,7 +27,7 @@ public class RollOfTheDiceSolo extends AbstractMinigame {
 	public String getName() { return "Roll of the Dice (Solo)"; }
 
 	@Override
-	public int getTotalPizeAmt() { return 20; }
+	public int getTotalPizeAmt() { return 10; }
 
 	@Override
 	public boolean shouldFadeOut() { return false; }
@@ -40,7 +40,7 @@ public class RollOfTheDiceSolo extends AbstractMinigame {
 		sum += players.get(0).getNextRoll();
 		sum += players.get(0).getNextRoll();
 		
-		disp.setDialogText("Team %s, you rolled 3 times for %d points total", false, Main.dialogWaitMillis);
+		disp.setDialogText(String.format("Team %s, you rolled 3 times for %d points total", players.get(0).getName(), sum), false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
 		String resp = "Since this is ";
@@ -48,9 +48,9 @@ public class RollOfTheDiceSolo extends AbstractMinigame {
 		List<Player> ret = new ArrayList<>();
 		if(sum < 15) {
 			ret.add(players.get(0));
-			resp += "less than 15, so you win!";
+			resp += "less than 15, good job!";
 		} else if(sum > 15) {
-			resp += "greater than 15, so you lose!";
+			resp += "greater than 15, too bad!";
 		} else
 			resp = "This is exactly 15 points!... Unfortunately you still lose";
 		

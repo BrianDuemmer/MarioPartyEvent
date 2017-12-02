@@ -1,5 +1,7 @@
 package com.dystify.marioPartyEvent.space;
 
+import java.util.Arrays;
+
 import com.dystify.marioPartyEvent.DisplayController;
 import com.dystify.marioPartyEvent.graphic.Player;
 
@@ -18,7 +20,7 @@ public class SoloMinigameSpace extends AbstractSpace {
 
 	@Override
 	public Player onLandedOn(Player c, DisplayController disp) {
-		// TODO Auto-generated method stub
+		disp.getNextspMinigame(true).playGame(Arrays.asList(c), disp);
 		return c;
 	}
 
