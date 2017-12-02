@@ -124,7 +124,7 @@ public class Player
 	 */
 	public synchronized void walk(int toX, int toY)
 	{
-		System.out.println("Player.walk()");
+		System.out.println("Player.walk() PLAYER:" +name);
 		double dx = (toX - currX);
 		double dy = (toY - currY);
 		double dist = Math.sqrt(dx*dx + dy*dy);
@@ -137,7 +137,7 @@ public class Player
 		if(dist > 0) 
 		{	
 			Platform.runLater(() -> {
-				System.out.println("Player.walk(), runLater lambda");
+				System.out.println("Player.walk(), runLater lambda PLAYER: " +name);
 				// not all the sprites have diagonal animations, If this throws an exception then we are probably 
 				// trying to run a diagonal animation for a character that doesn't have one, so just do it with cardinal directions
 				try {
@@ -159,7 +159,7 @@ public class Player
 					
 					
 				} catch(Exception e) {
-					System.out.println("in walk(), encountered " +e.getClass().getName());
+					System.out.println("in walk(), encountered " +e.getClass().getName()+ "for Player:" +name);
 					
 					double timeX = Math.abs(dx) / pxPerSecond;
 					double timeY = Math.abs(dy) / pxPerSecond;
