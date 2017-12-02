@@ -14,4 +14,9 @@ public abstract class AbstractBowserMinigame extends AbstractMinigame {
 	protected String wrapFmtTxt(List<Player> winners) {
 		return fmtWinnerTxt(winners, "And the Loser", "... HUGH? How did you all survive that!");
 	}
+	
+	@Override
+	public int getTotalPizeAmt() {
+		return -30;
+	}
 }

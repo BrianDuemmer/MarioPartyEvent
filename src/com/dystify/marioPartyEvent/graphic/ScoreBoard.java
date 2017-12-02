@@ -25,7 +25,7 @@ public class ScoreBoard extends StackPane
 	private static final int STARS_Y = 29;
 
 	private static final int COINS_X = STARS_X;
-	private static final int COINS_Y = -10;
+	private static final int COINS_Y = -15;
 
 	private static final int PLACE_X = 0;
 	private static final int PLACE_Y = 0;

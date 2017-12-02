@@ -30,8 +30,8 @@ public class BowserStarSpace extends AbstractSpace
 	public Player onLandedOn(Player c, DisplayController disp) 
 	{
 		if(isStar) {
-			disp.setDialogText("Would you like to buy a star for\n20 coins, " +c.getName()+ "?", false, -1);
-			try { Thread.sleep(1500); }catch(Exception e) {}
+			disp.setDialogText("Would you like to buy a star for 20 coins, " +c.getName()+ "?", false, -1);
+			try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 			
 			if(c.getNumCoins() >= 20) {
 				disp.setDialogText(String.format("%s's team: Vote !yes or !no", c.getName()), true, -1);
@@ -41,8 +41,8 @@ public class BowserStarSpace extends AbstractSpace
 					c.addStars(1);
 				}
 			} else {
-				disp.setDialogText("Oh... looks like you can't\nafford to buy a star. !OOF", false, 3000);
-				try { Thread.sleep(1500); }catch(Exception e) {}
+				disp.setDialogText("Oh... looks like you can't afford to buy a star. !OOF", false, Main.dialogWaitMillis);
+				try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 			}
 		} else { // play a bowser game, all characters
 			disp.getNextBowserMinigame(true).playGame(Arrays.asList(disp.getMario(), disp.getLuigi(), disp.getPeach(), disp.getYoshi()), disp);

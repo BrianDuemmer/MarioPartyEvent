@@ -1,6 +1,7 @@
 package com.dystify.marioPartyEvent.minigame;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 
 public class CurtainCall extends AbstractChatOnlyMinigame {
 
@@ -9,8 +10,11 @@ public class CurtainCall extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Pay attention to the characters\nin line, and answer the\nhosts' questions correctly!", false, 2500);
-		try { Thread.sleep(2500); } catch (InterruptedException e) {}
+		disp.setDialogText("Pay attention to the characters in line!", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("Answer the hosts' questions correctly!", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 
 	@Override

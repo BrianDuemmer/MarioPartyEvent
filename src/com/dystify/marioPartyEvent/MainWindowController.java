@@ -15,6 +15,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -31,6 +32,8 @@ public class MainWindowController
 	@FXML Label next4pMinigameLbl;
 	@FXML Label nextspMinigameLbl;
 	@FXML Label nextBowserMinigameLbl;
+	
+	@FXML Button startBtn;
 
 
 
@@ -57,6 +60,7 @@ public class MainWindowController
 
 	@FXML void openDisplay(ActionEvent event) {
 		System.out.println("open");
+		startBtn.setDisable(true);
 		dc.TurnSequencer();
 	}
 

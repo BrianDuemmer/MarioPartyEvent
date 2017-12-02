@@ -22,10 +22,16 @@ public class EndOfTheLine extends AbstractMinigame {
 	}
 
 	@Override
-	public void giveTextDemo(DisplayController disp) 
+	protected void giveTextDemo(DisplayController disp) 
 	{
-		disp.setDialogText("Choose a line from the three paths,\nonly one path is safe, use commands\n!left, !middle, and !right", false, 1000);
-		try { Thread.sleep(1000); }catch(Exception e) {}
+		disp.setDialogText("Choose a line from the three paths", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
+		
+		disp.setDialogText("Only one path is safe", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
+		
+		disp.setDialogText("Use commands !left, !middle, and !right", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 
 	}
 
@@ -121,10 +127,10 @@ public class EndOfTheLine extends AbstractMinigame {
 		switch(randSel) {
 			case 0: textTemplate = "Looks like the %s side is safe!"; break;
 			case 1: textTemplate = "People in the %s are safe!... for now"; break;
-			case 2: textTemplate = "Everyone not in the %s just \ngot ran over!"; break;
+			case 2: textTemplate = "Everyone not in the %s just got ran over!"; break;
 		}
 		
-		disp.setDialogText(String.format(textTemplate, survivingSide), false, 4000);
+		disp.setDialogText(String.format(textTemplate, survivingSide), false, Main.dialogWaitMillis);
 	}
 
 

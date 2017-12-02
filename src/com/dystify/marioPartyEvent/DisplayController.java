@@ -18,6 +18,9 @@ import com.dystify.marioPartyEvent.graphic.Player;
 import com.dystify.marioPartyEvent.graphic.ScoreBoard;
 import com.dystify.marioPartyEvent.graphic.SpriteState;
 import com.dystify.marioPartyEvent.minigame.AbstractMinigame;
+import com.dystify.marioPartyEvent.minigame.BowserEndOfTheLine;
+import com.dystify.marioPartyEvent.minigame.BowserMerryGoChomp;
+import com.dystify.marioPartyEvent.minigame.BowserRollOfTheDice;
 import com.dystify.marioPartyEvent.minigame.CurtainCall;
 import com.dystify.marioPartyEvent.minigame.EndOfTheLine;
 import com.dystify.marioPartyEvent.minigame.GuessTheQuote;
@@ -74,6 +77,7 @@ public class DisplayController
 	private Player toad;
 
 	private TextArea textBox;
+	private ImageView textBase;
 	private ImageView fadeOutImg;
 
 	private boolean endNextTurn = false;
@@ -91,19 +95,19 @@ public class DisplayController
 		String branch = s.branchDir(board.getSpaces().get(s.getBranchNext())).trim();
 
 		// poll chat
-		setDialogText(String.format("Which direction should %s go?\nTeam %s, choose %s or %s !", p.getName(), p.getName(), reg, branch), false, 5000);
+		setDialogText(String.format("Which direction should %s go? Team %s, choose %s or %s !", p.getName(), p.getName(), reg, branch), false, Main.chatVoteMillis);
 		String resp = CommandReader.inst().voteOneTeam(p, 
 				Filter.mergeFilters(
 						Filter.dirStringToFilter(reg), 
 						Filter.dirStringToFilter(branch)), 
-				15000);
+				Main.chatVoteMillis);
 
 		boolean willBranch = resp.equalsIgnoreCase(branch);
 
 		if(!willBranch)
 			resp = reg; // don't assume that the value returned is even valid. Just be sure it's the default
 
-		setDialogText(String.format("Looks like %s will go %s!", p.getName(), resp.replaceAll("!", "")), false, 5000);
+		setDialogText(String.format("Looks like %s will go %s!", p.getName(), resp.replaceAll("!", "")), false, Main.dialogWaitMillis);
 		return willBranch;
 		//		return Math.random() > 0.5;
 	};
@@ -147,13 +151,18 @@ public class DisplayController
 		textBox = new TextArea();
 		StackPane.setAlignment(textBox, Pos.TOP_CENTER);
 		textBox.setEditable(false);
-		textBox.setMaxWidth(800);
-		textBox.setMaxHeight(200);
+		textBox.setMaxWidth(430);
+		textBox.setMaxHeight(300);
+		textBox.setTranslateY(775);
+		textBox.setWrapText(true);
+		
+		textBase = new ImageView(Util.loadImage("/common/textBase.png"));
+		textBase.setOpacity(0);
 
 		fadeOutImg = new ImageView(Util.loadFile("/common/background.png").toExternalForm());
 		fadeOutImg.setOpacity(1);
 
-		rootPane.getChildren().addAll(fadeOutImg, textBox);
+		rootPane.getChildren().addAll(fadeOutImg, textBase, textBox);
 
 		initMinigames();
 	}
@@ -186,6 +195,10 @@ public class DisplayController
 		//bowser
 		//idfk what even the deal with these is
 		BowserMiniGames = new CircularLinkedList<>();
+		BowserMiniGames.add(new BowserRollOfTheDice());
+		BowserMiniGames.add(new BowserMerryGoChomp());
+		BowserMiniGames.add(new BowserEndOfTheLine());
+		BowserMiniGames.add(new BowserEndOfTheLine());
 	}
 
 
@@ -199,6 +212,7 @@ public class DisplayController
 	 */
 	public void setDialogText(String text, boolean append, int timeToClear)
 	{
+		setTextBoxBaseEnabled(true);
 		System.out.print(text);
 		if(!append)
 			System.out.println();
@@ -219,6 +233,7 @@ public class DisplayController
 
 					if(timeToClear > 0 ) {
 						try { Thread.sleep(timeToClear); } catch (InterruptedException e) {}
+//						setTextBoxBaseEnabled(false);
 						Platform.runLater(()-> { textBox.setText(""); });
 					}
 				}
@@ -226,6 +241,21 @@ public class DisplayController
 			t.setDaemon(true);
 			t.start();
 		}
+	}
+	
+	
+	
+	/**
+	 * Shows / hides the base of the textbox
+	 * @param show
+	 */
+	public void setTextBoxBaseEnabled(boolean show) {
+		double opacity = show ? 1 : 0;
+		Platform.runLater(() -> {
+			FadeTransition t = new FadeTransition(Duration.millis(500), textBase);
+			t.setToValue(opacity);
+			t.play();
+		});
 	}
 
 
@@ -235,7 +265,7 @@ public class DisplayController
 
 	public void testMinigame() {
 		new Thread(()->{
-			AbstractMinigame m = /*new EndOfTheLine(); new TreasurePick();  new RollOfTheDiceMulti();*/ new MerryGoChomp();
+			AbstractMinigame m = /*new EndOfTheLine(); new TreasurePick();  new RollOfTheDiceMulti(); new MerryGoChomp();*/ getNext4pMinigame(true);
 
 			List<Player> g = new ArrayList<>();
 			g.add(mario);
@@ -364,7 +394,7 @@ public class DisplayController
 	public void TurnSequencer() 
 	{
 		Thread t = new Thread(()->{
-			setDialogText("Roll for each character, to\ndetermine the turn order!", false, -1);
+			setDialogText("Roll for each character, to determine the turn order!", false, -1);
 			
 			// sort them by their dice rolls
 			List<SortablePlayer> sortablePlayer = new ArrayList<>();
@@ -382,7 +412,7 @@ public class DisplayController
 			players.add(sortablePlayer.get(3).player);
 
 			// report on the order of the players
-			StringBuilder playerList =new StringBuilder("This will be the play order:\n");
+			StringBuilder playerList =new StringBuilder("This will be the play order: ");
 			for(int i=0; i<players.size(); i++)
 			{
 				playerList.append(players.get(i).getName());
@@ -392,7 +422,7 @@ public class DisplayController
 					playerList.append(", ");
 			}
 
-			setDialogText(playerList.toString(), false, 2000);
+			setDialogText(playerList.toString(), false, Main.dialogWaitMillis);
 
 			
 			// play the game, until it's flagged to stop
@@ -414,14 +444,14 @@ public class DisplayController
 				if(p.getCurrRank() == Place.FIRST)
 					winners.add(p);
 
-			setDialogText("The game is over!\n", false, -1);
-			try { Thread.sleep(2000); } catch(InterruptedException e) {}
+			setDialogText("The game is over! ", false, -1);
+			try { Thread.sleep(Main.dialogWaitMillis); } catch(InterruptedException e) {}
 
 			Player winner = luigi; // luigi is the default winner, because he's number 1.
 
 			if(winners.size() > 1) {
 				setDialogText("... But wait, there is a tie!", true, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
-				setDialogText("In that case...", false, -1); try { Thread.sleep(3000); } catch(InterruptedException e) {}
+				setDialogText("In that case...", false, -1); try { Thread.sleep(Main.dialogWaitMillis); } catch(InterruptedException e) {}
 				AbstractMinigame tiebreaker = new PoundPeril();
 				winners = tiebreaker.playGame(winners, this);
 				if(winners.size() > 0) // let's not have an indexoutofbounds if we can avoid it
@@ -432,8 +462,8 @@ public class DisplayController
 				setDialogText("And The Superstar is...", true, -1); try { Thread.sleep(5000); } catch(InterruptedException e) {}
 				setDialogText(winner.getName() + "!", false, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
 			}
-			setDialogText("Congradulations to everyone on\n" +winner.getName()+ "'s Team!", false, -1); try { Thread.sleep(5000); } catch(InterruptedException e) {}
-			setDialogText("And thank you everyone,\nfor playing the game!\n", false, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
+			setDialogText("Congradulations to everyone on " +winner.getName()+ "'s Team!", false, -1); try { Thread.sleep(Main.dialogWaitMillis); } catch(InterruptedException e) {}
+			setDialogText("And thank you everyone, for playing the game! ", false, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
 			setDialogText("We hope you enjoyed it!", true, -1); try { Thread.sleep(8000); } catch(InterruptedException e) {}
 
 			//fade out the text for a nice ending

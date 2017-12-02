@@ -88,6 +88,7 @@ public class GameBoard
 	 */
 	public void moveSpaces(Player p, int numSpaces, DisplayController disp, PathBranchHandler h) 
 	{
+		System.out.println("GameBoard.moveSpaces()");
 		boolean useBranch;
 		AbstractSpace s = p.getCurrSpace();
 		

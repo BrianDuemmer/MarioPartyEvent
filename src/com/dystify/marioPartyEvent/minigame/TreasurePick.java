@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 import com.dystify.marioPartyEvent.control2.CommandReader;
 import com.dystify.marioPartyEvent.control2.command.DirectionCommand;
 import com.dystify.marioPartyEvent.graphic.Player;
@@ -15,14 +16,14 @@ public class TreasurePick extends AbstractMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Choose a space, !left, !middle, or\n!right, to pick from a chest.", false, 2500);
-		try { Thread.sleep(3000); }catch(Exception e) {}
+		disp.setDialogText("Choose a space, !left, !middle, or !right, to pick from a chest.", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Pick the right one and you win!\n", false, -1);
-		try { Thread.sleep(3000); }catch(Exception e) {}
+		disp.setDialogText("Pick the right one and you win!", false, -1);
+		try { Thread.sleep(5000); }catch(Exception e) {}
 		
-		disp.setDialogText("...But choose wrong, you lose!", true, 1500);
-		try { Thread.sleep(2000); }catch(Exception e) {}
+		disp.setDialogText("...But choose wrong, you lose!", true, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 	}
 
 	@Override

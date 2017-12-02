@@ -1,5 +1,6 @@
 package com.dystify.marioPartyEvent.minigame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,29 +16,19 @@ import com.dystify.marioPartyEvent.control2.command.ChatCommand;
 import com.dystify.marioPartyEvent.graphic.Player;
 import com.dystify.marioPartyEvent.util.Util;
 
-public class LookAway extends AbstractMinigame {
+public class BowserLookAway extends AbstractBowserMinigame {
 
-	public LookAway() {
-		// TODO Auto-generated constructor stub
-	}
+	public BowserLookAway() {}
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Pick a direction, avoid picking the same direction as Bowser.", false, Main.dialogWaitMillis); 
-		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
-		
-		disp.setDialogText(" Use commands !up, !down, !left, and !right!", false, Main.dialogWaitMillis);
-		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		disp.setDialogText(" Use commands !up, !down, !left, and !right!", false, Main.dialogWaitMillis); try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+
 	}
 
 	@Override
 	public String getName() {
-		return "Look Away";
-	}
-
-	@Override
-	public int getTotalPizeAmt() {
-		return 10;
+		return "Bowser's Look Away";
 	}
 
 	@Override
@@ -82,22 +73,34 @@ public class LookAway extends AbstractMinigame {
 				playersLeft = tmpSurvivors; // copy back the survivors to the original
 			}
 			
-			if(Util.getTotalNumInMap(playersLeft) > 1) {
-				dispSurvivorMsg(survivingSide, disp, rng);
-			} else if(Util.getTotalNumInMap(playersLeft) == 0) // everybody lost
-				break;
+			// if anyone died, remove them from the pool and return
+			for(Entry<Player, List<ChatCommand>> pl : playersLeft.entrySet()) {
+				if(pl.getValue().isEmpty()) {
+					playersLeft.remove(pl.getKey());
+					return new ArrayList<Player>(playersLeft.keySet());
+//					List<Player>
+//					for(Entry<Player, List<ChatCommand>> aaa : playersLeft)
+				}
+			}
+			
+//			if(Util.getTotalNumInMap(playersLeft) > 1) {
+//				dispSurvivorMsg(survivingSide, disp, rng);
+//			} else if(Util.getTotalNumInMap(playersLeft) == 0) // everybody lost
+//				break;
+			
 			
 		}
 		
-		// only pass players who still have survivors as winners
-		List<Player> ret = new LinkedList<>();
-		for(Entry<Player, List<ChatCommand>> pl : playersLeft.entrySet())
-			if(!pl.getValue().isEmpty())
-				ret.add(pl.getKey());
+//		// only pass players who still have survivors as winners
+//		List<Player> ret = new LinkedList<>();
+//		for(Entry<Player, List<ChatCommand>> pl : playersLeft.entrySet())
+//			if(!pl.getValue().isEmpty())
+//				ret.add(pl.getKey());
 		
 		
 		
-		return ret;
+//		return ret;
+		return new ArrayList<Player>(playersLeft.keySet());
 	}
 	
 	
@@ -137,9 +140,5 @@ public class LookAway extends AbstractMinigame {
 		
 		disp.setDialogText(String.format(textTemplate, survivingSide), false, Main.dialogWaitMillis);
 	}
-
-
-
-
 
 }

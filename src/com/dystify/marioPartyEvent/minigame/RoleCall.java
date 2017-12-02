@@ -1,6 +1,7 @@
 package com.dystify.marioPartyEvent.minigame;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 
 public class RoleCall extends AbstractChatOnlyMinigame {
 
@@ -9,8 +10,11 @@ public class RoleCall extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Count each object on the screen,\ntag the game host with\nthe right answer", false, 2500);
-		try { Thread.sleep(2500); } catch (InterruptedException e) {}
+		disp.setDialogText("Count each object on the screen...", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("Tag the game host with the right answer", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 
 	@Override

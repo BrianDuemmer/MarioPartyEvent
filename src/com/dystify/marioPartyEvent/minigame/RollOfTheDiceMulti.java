@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 import com.dystify.marioPartyEvent.control2.CommandReader;
 import com.dystify.marioPartyEvent.control2.command.RollCommand;
 import com.dystify.marioPartyEvent.graphic.Player;
@@ -17,8 +18,14 @@ public class RollOfTheDiceMulti extends AbstractMinigame
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Roll the Dice and try to get\nthe highest number,\ncaptains use !roll to roll", false, 1000);
-		try { Thread.sleep(1000); }catch(Exception e) {}
+		disp.setDialogText("Roll the Dice and try to get the highest number", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
+		
+		disp.setDialogText("Captains use !roll to roll!", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
+		
+		disp.setDialogText("Whoever rolls lowest is out!", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 	}
 
 	@Override
@@ -58,11 +65,12 @@ public class RollOfTheDiceMulti extends AbstractMinigame
 			}
 			
 			if(hadDuplicates) {
-				disp.setDialogText("Looks like a tie for\nlast. Nobody's out!", false, 4000);
+				disp.setDialogText("Looks like a tie for last. Nobody's out!", false, Main.dialogWaitMillis);
 			} else {
 				ret.remove(lowest.getKey());
-				disp.setDialogText(String.format("%s rolled lowest.\nThey're out!", lowest.getKey().getName()), false, 4000);
+				disp.setDialogText(String.format("%s rolled lowest. They're out!", lowest.getKey().getName()), false, Main.dialogWaitMillis);
 			}
+			try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		} while (ret.size() > 1);
 		
 		return ret;

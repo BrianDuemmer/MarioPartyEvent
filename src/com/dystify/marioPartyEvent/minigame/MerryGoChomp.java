@@ -23,7 +23,14 @@ public class MerryGoChomp extends AbstractMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Choose a color for your team,\neach color will be\neliminated after each round.", false, 4000); try { Thread.sleep(4000); } catch (InterruptedException e) {}
+		disp.setDialogText("Choose a color for your team,", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("!red, !yellow, !blue, or !green, ", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("One team's color will be eliminated after each round.", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 
 	@Override
@@ -59,7 +66,7 @@ public class MerryGoChomp extends AbstractMinigame {
 			if(i != 0)
 				txt += "and ";
 			txt += spacesLeft.get(spacesLeft.size()-1);
-			disp.setDialogText(txt, false, 5000);
+			disp.setDialogText(txt, false, Main.dialogWaitMillis);
 
 			// poll chat and get the nominal colors
 			String filter = Filter.fromCommands((spacesLeft.toArray(new String[spacesLeft.size()])));
@@ -72,8 +79,8 @@ public class MerryGoChomp extends AbstractMinigame {
 				if(e.getValue().command.equalsIgnoreCase(ded)) {
 					if(!playersLeft.remove(e.getKey()))
 						System.err.println("Failed to remove Player " +e.getKey().getName());
-					disp.setDialogText(String.format("...And %s, on %s is out!", e.getKey().getName(), ded), false, 5000);
-					try { Thread.sleep(5000); } catch(Exception foo) {}
+					disp.setDialogText(String.format("...And %s, on %s is out!", e.getKey().getName(), ded), false, Main.dialogWaitMillis);
+					try { Thread.sleep(Main.dialogWaitMillis); } catch(Exception foo) {}
 					break;
 				}
 			}

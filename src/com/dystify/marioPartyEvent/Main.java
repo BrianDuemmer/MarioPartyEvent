@@ -17,6 +17,7 @@ public class Main extends Application
 {
 	public static Font mp_font;
 	public static int chatVoteMillis = 20000;
+	public static int dialogWaitMillis = 5000;
 	
 	
 	@Override

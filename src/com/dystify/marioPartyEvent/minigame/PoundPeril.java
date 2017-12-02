@@ -1,6 +1,7 @@
 package com.dystify.marioPartyEvent.minigame;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 
 public class PoundPeril extends AbstractChatOnlyMinigame {
 
@@ -9,7 +10,14 @@ public class PoundPeril extends AbstractChatOnlyMinigame {
 
 	@Override
 	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Use commands !1 - !12, captains! One will hold victory, the\nothers will slow you down!", false, 2500); try { Thread.sleep(2500); } catch (InterruptedException e) {}
+		disp.setDialogText("Use commands !1 - !12, captains!", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("One will hold victory...", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+		
+		disp.setDialogText("but the others will slow you down!", false, Main.dialogWaitMillis); 
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 
 	@Override

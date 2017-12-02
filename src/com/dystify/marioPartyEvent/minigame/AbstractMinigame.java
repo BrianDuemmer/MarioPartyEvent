@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
 import com.dystify.marioPartyEvent.graphic.Player;
 
 /**
@@ -58,7 +59,7 @@ public abstract class AbstractMinigame
 	 * @return
 	 */
 	protected String wrapFmtTxt(List<Player> winners) {
-		return fmtWinnerTxt(winners, "And the winner", " is... Nobody!\nThe V O I D must have got them...");
+		return fmtWinnerTxt(winners, "And the winner", " is... Nobody! The V O I D must have got them...");
 	}
 
 	
@@ -69,16 +70,17 @@ public abstract class AbstractMinigame
 	 * @param disp
 	 */
 	protected void initMinigameDialog(DisplayController disp) {
-		disp.setDialogText("Now it's time for a minigame!\n", false, -1);
-		try { Thread.sleep(3000); }catch (Exception e) {}
+		disp.setDialogText("Now it's time for a minigame!", false, -1);
+		try { Thread.sleep(5000); }catch (Exception e) {}
 		disp.setDialogText("The minigame will be: ", true, -1);
 		try { Thread.sleep(3000); }catch (Exception e) {}
-		disp.setDialogText(getName() + "!", false, 2750);
-		try { Thread.sleep(3000); }catch (Exception e) {}
+		disp.setDialogText(getName() + "!", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch (Exception e) {}
 
 		giveTextDemo(disp);
 
-		disp.setDialogText("Now let's begin...", false, 2000);
+		disp.setDialogText("Now let's begin...", false, 5000);
+		try { Thread.sleep(5000); }catch (Exception e) {}
 	}
 
 
@@ -116,7 +118,7 @@ public abstract class AbstractMinigame
 		else if(winners.size() > 1) 
 		{
 			ret.append("s are:");
-			ret.append('\n');
+//			ret.append('\n');
 
 			for(int i=0; i<winners.size(); i++) 
 			{

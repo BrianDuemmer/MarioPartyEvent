@@ -13,7 +13,6 @@ import com.dystify.marioPartyEvent.control2.CommandReader;
 import com.dystify.marioPartyEvent.control2.Filter;
 import com.dystify.marioPartyEvent.control2.command.ChatCommand;
 import com.dystify.marioPartyEvent.graphic.Player;
-import com.dystify.marioPartyEvent.util.Util;
 
 public class BowserEndOfTheLine extends AbstractBowserMinigame {
 
@@ -24,15 +23,15 @@ public class BowserEndOfTheLine extends AbstractBowserMinigame {
 	@Override
 	public void giveTextDemo(DisplayController disp) 
 	{
-		disp.setDialogText("Choose a line from the three paths,\nonly one path is safe, use commands\n!left, !middle, and !right", false, 1000);
-		try { Thread.sleep(1000); }catch(Exception e) {}
+		disp.setDialogText("Choose a line from the three paths,only one path is safe", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
+		
+		disp.setDialogText("Use commands !left, !middle, and !right", false, Main.dialogWaitMillis);
+		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 
 	}
 
 	@Override public String getName() { return "Bowser's End of the Line"; }
-
-	@Override
-	public int getTotalPizeAmt() { return -10; }
 
 	@Override
 	public boolean shouldFadeOut() { return false; }
@@ -45,7 +44,8 @@ public class BowserEndOfTheLine extends AbstractBowserMinigame {
 	{
 		Random rng = new Random();
 		Map<Player, List<ChatCommand>> playersLeft = null;
-		do {
+		boolean someoneDied = false;
+		while(!someoneDied) {
 			String survivingSide = "";
 			switch(rng.nextInt(3)) {
 				case 0: survivingSide = "left"; break;
@@ -77,10 +77,17 @@ public class BowserEndOfTheLine extends AbstractBowserMinigame {
 				playersLeft = tmpSurvivors; // copy back the survivors to the original
 			}
 			
-			if(Util.getTotalNumInMap(playersLeft) > 1)
+			// check if anyone died
+			for(Entry<Player, List<ChatCommand>> pl : playersLeft.entrySet()) {
+				someoneDied = pl.getValue().isEmpty();
+				if(someoneDied)
+					break;
+			}
+			
+			if(!someoneDied)
 				dispSurvivorMsg(survivingSide, disp, rng);
 			
-		} while(Util.getTotalNumInMap(playersLeft) > 1);
+		}
 		
 		// only pass players who still have survivors as winners
 		List<Player> ret = new LinkedList<>();
@@ -121,10 +128,10 @@ public class BowserEndOfTheLine extends AbstractBowserMinigame {
 		switch(randSel) {
 			case 0: textTemplate = "Looks like the %s side is safe!"; break;
 			case 1: textTemplate = "People in the %s are safe!... for now"; break;
-			case 2: textTemplate = "Everyone not in the %s just \ngot ran over!"; break;
+			case 2: textTemplate = "Everyone not in the %s just got ran over!"; break;
 		}
 		
-		disp.setDialogText(String.format(textTemplate, survivingSide), false, 4000);
+		disp.setDialogText(String.format(textTemplate, survivingSide), false, Main.dialogWaitMillis);
 	}
 
 
