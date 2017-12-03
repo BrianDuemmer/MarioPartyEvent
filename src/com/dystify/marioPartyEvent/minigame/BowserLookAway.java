@@ -21,8 +21,8 @@ public class BowserLookAway extends AbstractBowserMinigame {
 	public BowserLookAway() {}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText(" Use commands !up, !down, !left, and !right!", false, Main.dialogWaitMillis); try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
+		disp.setDialogText(" Use commands !up, !down, !left, and !right!", false, -1); try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 
 	}
 

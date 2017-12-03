@@ -1,6 +1,10 @@
 package com.dystify.marioPartyEvent.minigame;
 
+import java.util.List;
+
 import com.dystify.marioPartyEvent.DisplayController;
+import com.dystify.marioPartyEvent.Main;
+import com.dystify.marioPartyEvent.graphic.Player;
 
 public class ToadSays extends AbstractChatOnlyMinigame {
 
@@ -8,9 +12,9 @@ public class ToadSays extends AbstractChatOnlyMinigame {
 	}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
-		disp.setDialogText("Pay attention to Toad, only do what he asks when he says “Toad Says”", false, 2500);
-		try { Thread.sleep(2500); } catch (InterruptedException e) {}
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
+		disp.setDialogText("Pay attention to Toad, only do what he asks when he says “Toad Says”", false, -1);
+		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 
 	@Override

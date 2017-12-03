@@ -15,14 +15,14 @@ public class TreasurePick extends AbstractMinigame {
 	public TreasurePick() { }
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Choose a space, !left, !middle, or !right, to pick from a chest.", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
 		disp.setDialogText("Pick the right one and you win!", false, -1);
 		try { Thread.sleep(5000); }catch(Exception e) {}
 		
-		disp.setDialogText("...But choose wrong, you lose!", true, Main.dialogWaitMillis);
+		disp.setDialogText("...But choose wrong, you lose!", true, -1);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 	}
 

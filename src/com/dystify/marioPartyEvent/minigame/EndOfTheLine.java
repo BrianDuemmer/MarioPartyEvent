@@ -22,7 +22,7 @@ public class EndOfTheLine extends AbstractMinigame {
 	}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) 
+	protected void giveTextDemo(DisplayController disp, List<Player> players) 
 	{
 		disp.setDialogText("Choose a line from the three paths", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
@@ -30,7 +30,7 @@ public class EndOfTheLine extends AbstractMinigame {
 		disp.setDialogText("Only one path is safe", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Use commands !left, !middle, and !right", false, Main.dialogWaitMillis);
+		disp.setDialogText("Use commands !left, !middle, and !right", false, -1);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 
 	}
@@ -83,7 +83,7 @@ public class EndOfTheLine extends AbstractMinigame {
 				playersLeft = tmpSurvivors; // copy back the survivors to the original
 			}
 			
-			if(Util.getTotalNumInMap(playersLeft) > 1)
+//			if(Util.getTotalNumInMap(playersLeft) > 1)
 				dispSurvivorMsg(survivingSide, disp, rng);
 			
 		} while(Util.getTotalNumInMap(playersLeft) > 1);

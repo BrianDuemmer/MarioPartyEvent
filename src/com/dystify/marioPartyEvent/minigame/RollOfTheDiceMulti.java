@@ -17,14 +17,14 @@ public class RollOfTheDiceMulti extends AbstractMinigame
 	public RollOfTheDiceMulti() {}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Roll the Dice and try to get the highest number", false, Main.dialogWaitMillis); 
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
 		disp.setDialogText("Captains use !roll to roll!", false, Main.dialogWaitMillis); 
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Whoever rolls lowest is out!", false, Main.dialogWaitMillis); 
+		disp.setDialogText("Whoever rolls lowest is out!", false, -1); 
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 	}
 

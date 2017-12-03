@@ -26,6 +26,8 @@ public class MainWindowController
 {
 	private DisplayController dc;
 	@FXML TextField rollNumField;
+	@FXML TextField chatVoteMillisEntry;
+	@FXML TextField dialogWaitMillisEntry;
 	@FXML ChoiceBox<String> rollTeamSelector;
 	@FXML CheckBox endGameCheckbox;
 
@@ -419,10 +421,45 @@ public class MainWindowController
 						rollNumField.setText("0");
 				});
 		rollNumField.setText("0");
+		
+		
+		
+		
+		chatVoteMillisEntry.textProperty().addListener(
+				(ObservableValue<? extends String> observable, String oldValue, String newValue)-> {
+					if (!newValue.matches("\\d*")) {
+						chatVoteMillisEntry.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+					if(newValue.trim().equals(""))
+						chatVoteMillisEntry.setText("0");
+					Main.chatVoteMillis = Integer.parseInt(chatVoteMillisEntry.getText());
+				});
+		
+		
+		
+		
+		dialogWaitMillisEntry.textProperty().addListener(
+				(ObservableValue<? extends String> observable, String oldValue, String newValue)-> {
+					if (!newValue.matches("\\d*")) {
+						dialogWaitMillisEntry.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+					if(newValue.trim().equals(""))
+						dialogWaitMillisEntry.setText("0");
+					Main.dialogWaitMillis = Integer.parseInt(dialogWaitMillisEntry.getText());
+				});
 
+		
+		
+		
+		
+		
 		rollTeamSelector.setItems(FXCollections.observableArrayList("Luigi", "Mario", "Peach", "Yoshi"));
 		rollTeamSelector.getSelectionModel().select(0);
 
+		
+		
+		
+		// Check what minigames are next
 		ScheduledExecutorService sex = Executors.newSingleThreadScheduledExecutor(
 				new ThreadFactory() {
 					@Override public Thread newThread(Runnable r) {

@@ -23,12 +23,6 @@ public class BowserStarSpace extends AbstractSpace
 
 	@Override
 	public Player onPassed(Player c, DisplayController disp) {
-		return c;
-	}
-
-	@Override
-	public Player onLandedOn(Player c, DisplayController disp) 
-	{
 		if(isStar) {
 			disp.setDialogText("Would you like to buy a star for 20 coins, " +c.getName()+ "?", false, -1);
 			try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
@@ -47,6 +41,12 @@ public class BowserStarSpace extends AbstractSpace
 		} else { // play a bowser game, all characters
 			disp.getNextBowserMinigame(true).playGame(Arrays.asList(disp.getMario(), disp.getLuigi(), disp.getPeach(), disp.getYoshi()), disp);
 		}
+		return c;
+	}
+
+	@Override
+	public Player onLandedOn(Player c, DisplayController disp) 
+	{
 		return c;
 	}
 

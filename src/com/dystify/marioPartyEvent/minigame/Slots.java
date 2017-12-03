@@ -16,11 +16,11 @@ public class Slots extends AbstractMinigame {
 	}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Roll the Slots and try to get two in a row!", false, Main.dialogWaitMillis);
 		try {Thread.sleep(Main.dialogWaitMillis);} catch(InterruptedException e) {}
 		
-		disp.setDialogText("Use !roll to spin!", false, Main.dialogWaitMillis);
+		disp.setDialogText("Use !roll to spin!", false, -1);
 		try {Thread.sleep(Main.dialogWaitMillis);} catch(InterruptedException e) {}
 	}
 

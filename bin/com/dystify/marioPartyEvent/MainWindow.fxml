@@ -71,6 +71,18 @@
                         <TextField fx:id="rollNumField" prefHeight="24.0" prefWidth="137.0" />
                      </children>
                   </HBox>
+                  <HBox fx:id="chatVoteMillisDialog" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="ChatVoteMillis" />
+                        <TextField fx:id="chatVoteMillisEntry" text="20000" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="chatVoteMillisDialog1" alignment="CENTER_LEFT" layoutX="30.0" layoutY="80.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="DialogWaitMillis" />
+                        <TextField fx:id="dialogWaitMillisEntry" text="5000" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button fx:id="startBtn" mnemonicParsing="false" onAction="#openDisplay" text="Start game..." />

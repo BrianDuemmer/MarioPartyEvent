@@ -19,11 +19,11 @@ public class BowserMerryGoChomp extends AbstractBowserMinigame {
 	public BowserMerryGoChomp() {}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Choose a color for your team,!red, !blue, !yellow, !green", false, Main.dialogWaitMillis); 
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Whoever picks the same as Bowser wins!", false, Main.dialogWaitMillis); 
+		disp.setDialogText("Whoever picks the same as Bowser wins!", false, -1); 
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
 	}

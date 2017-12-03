@@ -15,10 +15,11 @@ public class BlueSpace extends AbstractSpace {
 	}
 
 	@Override
-	public Player onPassed(Player c, DisplayController disp) { return c; }
+	public Player onPassed(Player c, DisplayController disp) { System.out.println("passed blue space"); return c; }
 
 	@Override
 	public Player onLandedOn(Player c, DisplayController disp) {
+		System.out.println("landed on blue space");
 		c.addCoins(3);
 		return c;
 	}

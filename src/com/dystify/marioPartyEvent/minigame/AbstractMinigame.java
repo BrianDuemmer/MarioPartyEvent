@@ -27,7 +27,7 @@ public abstract class AbstractMinigame
 	 */
 	public final List<Player> playGame(List<Player> players, DisplayController disp) 
 	{
-		initMinigameDialog(disp);
+		initMinigameDialog(disp, players);
 		if(shouldFadeOut())
 			disp.fadeTo(1, 2000);
 		try { Thread.sleep(2000); }catch (Exception e) {}
@@ -48,7 +48,7 @@ public abstract class AbstractMinigame
 
 		for(Player p : winners)
 			p.addCoins(prizeEach);
-		
+		disp.calcRanks(); // induce an extra update to account for minigame winnings
 		return winners;
 	}
 
@@ -69,7 +69,7 @@ public abstract class AbstractMinigame
 	 * Displays the pre-minigame dialog
 	 * @param disp
 	 */
-	protected void initMinigameDialog(DisplayController disp) {
+	protected void initMinigameDialog(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Now it's time for a minigame!", false, -1);
 		try { Thread.sleep(5000); }catch (Exception e) {}
 		disp.setDialogText("The minigame will be: ", true, -1);
@@ -77,7 +77,7 @@ public abstract class AbstractMinigame
 		disp.setDialogText(getName() + "!", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch (Exception e) {}
 
-		giveTextDemo(disp);
+		giveTextDemo(disp, players);
 
 		disp.setDialogText("Now let's begin...", false, 5000);
 		try { Thread.sleep(5000); }catch (Exception e) {}
@@ -87,8 +87,8 @@ public abstract class AbstractMinigame
 
 	
 	
-	public void tempTestTxtDemo(DisplayController disp) { giveTextDemo(disp); }
-	protected abstract void giveTextDemo(DisplayController disp);
+//	public void tempTestTxtDemo(DisplayController disp) { giveTextDemo(disp); }
+	protected abstract void giveTextDemo(DisplayController disp, List<Player> players);
 	public abstract String getName();
 	public abstract int getTotalPizeAmt();
 	public abstract boolean shouldFadeOut();

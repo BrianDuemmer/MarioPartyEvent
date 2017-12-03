@@ -1,7 +1,6 @@
 package com.dystify.marioPartyEvent.space;
 
 import com.dystify.marioPartyEvent.DisplayController;
-import com.dystify.marioPartyEvent.Main;
 import com.dystify.marioPartyEvent.graphic.Player;
 
 public class MushroomSpace extends AbstractSpace {
@@ -18,7 +17,8 @@ public class MushroomSpace extends AbstractSpace {
 	@Override
 	public Player onLandedOn(Player c, DisplayController disp) { // add an extra turn
 		System.out.println("MushroomSpace.onLandedOn()");
-		disp.setDialogText("Roll again, " +c.getName()+ "!", false, Main.dialogWaitMillis);
+//		disp.setDialogText("Roll again, " +c.getName()+ "!", false, Main.dialogWaitMillis);
+//		try { Thread.sleep(10000); } catch (InterruptedException e) {}
 		disp.takeTurn(c);
 		return c;
 	}

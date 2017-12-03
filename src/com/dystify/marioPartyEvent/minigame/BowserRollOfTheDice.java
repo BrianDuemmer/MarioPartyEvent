@@ -16,11 +16,11 @@ public class BowserRollOfTheDice extends AbstractBowserMinigame {
 	public BowserRollOfTheDice() {}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Roll the Dice and try to get the lowest number", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Captains use !roll to roll", false, Main.dialogWaitMillis);
+		disp.setDialogText("Captains use !roll to roll", false, -1);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 	}
 

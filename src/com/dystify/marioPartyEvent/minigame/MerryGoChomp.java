@@ -22,14 +22,14 @@ public class MerryGoChomp extends AbstractMinigame {
 	public MerryGoChomp() {}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Choose a color for your team,", false, Main.dialogWaitMillis); 
 		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 		
 		disp.setDialogText("!red, !yellow, !blue, or !green, ", false, Main.dialogWaitMillis); 
 		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 		
-		disp.setDialogText("One team's color will be eliminated after each round.", false, Main.dialogWaitMillis); 
+		disp.setDialogText("One team's color will be eliminated after each round.", false, -1); 
 		try { Thread.sleep(Main.dialogWaitMillis); } catch (InterruptedException e) {}
 	}
 

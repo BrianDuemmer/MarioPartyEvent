@@ -21,12 +21,12 @@ public class BowserEndOfTheLine extends AbstractBowserMinigame {
 	}
 
 	@Override
-	public void giveTextDemo(DisplayController disp) 
+	public void giveTextDemo(DisplayController disp, List<Player> players) 
 	{
 		disp.setDialogText("Choose a line from the three paths,only one path is safe", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("Use commands !left, !middle, and !right", false, Main.dialogWaitMillis);
+		disp.setDialogText("Use commands !left, !middle, and !right", false, -1);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 
 	}

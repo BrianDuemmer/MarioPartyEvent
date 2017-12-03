@@ -14,11 +14,11 @@ public class RollOfTheDiceSolo extends AbstractMinigame {
 	}
 
 	@Override
-	protected void giveTextDemo(DisplayController disp) {
+	protected void giveTextDemo(DisplayController disp, List<Player> players) {
 		disp.setDialogText("Roll three Dice and attempt to get a total...", false, Main.dialogWaitMillis);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 		
-		disp.setDialogText("...lower than 15, captians use !roll to roll.", false, Main.dialogWaitMillis);
+		disp.setDialogText("...lower than 15, " +players.get(0).getName()+ " use !roll to roll.", false, -1);
 		try { Thread.sleep(Main.dialogWaitMillis); }catch(Exception e) {}
 
 	}

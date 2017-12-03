@@ -283,22 +283,22 @@ public class DisplayController
 	 */
 	public void testTextDemos() 
 	{
-		new Thread(() -> {
-			for(AbstractMinigame p : fourPlayerMiniGames) {
-				System.err.println(p.getName());
-				p.tempTestTxtDemo(this);
-			}
-			
-			for(AbstractMinigame p : soloMinigames) {
-				System.err.println(p.getName());
-				p.tempTestTxtDemo(this);
-			}
-			
-			for(AbstractMinigame p : BowserMiniGames) {
-				System.err.println(p.getName());
-				p.tempTestTxtDemo(this);
-			}
-		}).start();
+//		new Thread(() -> {
+//			for(AbstractMinigame p : fourPlayerMiniGames) {
+//				System.err.println(p.getName());
+//				p.tempTestTxtDemo(this);
+//			}
+//			
+//			for(AbstractMinigame p : soloMinigames) {
+//				System.err.println(p.getName());
+//				p.tempTestTxtDemo(this);
+//			}
+//			
+//			for(AbstractMinigame p : BowserMiniGames) {
+//				System.err.println(p.getName());
+//				p.tempTestTxtDemo(this);
+//			}
+//		}).start();
 	}
 
 
@@ -347,11 +347,11 @@ public class DisplayController
 		Player startsOnLeft = xDiff > 0 ? toad : bowser;
 		Player startsOnRight = xDiff < 0 ? toad : bowser;
 
-		startsOnLeft.walk(-40, startsOnLeft.getCurrY());
-		startsOnRight.walk((int) (stage.getWidth() + 40), startsOnRight.getCurrY());
+		startsOnLeft.walk(-100, startsOnLeft.getCurrY());
+		startsOnRight.walk((int) (stage.getWidth() + 100), startsOnRight.getCurrY());
 
-		startsOnLeft.setSpritePos((int) (stage.getWidth() + 40), 420);
-		startsOnRight.setSpritePos(-40, 510);
+		startsOnLeft.setSpritePos((int) (stage.getWidth() + 100), 420);
+		startsOnRight.setSpritePos(-100, 510);
 
 		startsOnLeft.walk(1125, 420);
 		Platform.runLater(() ->{ startsOnLeft.setSprite(SpriteState.STILL_LEFT); });
@@ -463,8 +463,8 @@ public class DisplayController
 				setDialogText(winner.getName() + "!", false, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
 			}
 			setDialogText("Congradulations to everyone on " +winner.getName()+ "'s Team!", false, -1); try { Thread.sleep(Main.dialogWaitMillis); } catch(InterruptedException e) {}
-			setDialogText("And thank you everyone, for playing the game! ", false, -1); try { Thread.sleep(2000); } catch(InterruptedException e) {}
-			setDialogText("We hope you enjoyed it!", true, -1); try { Thread.sleep(8000); } catch(InterruptedException e) {}
+			setDialogText("And thank you all for playing the game! ", false, -1); try { Thread.sleep(Main.dialogWaitMillis); } catch(InterruptedException e) {}
+			setDialogText("We hope you enjoyed it!", false, -1); try { Thread.sleep(8000); } catch(InterruptedException e) {}
 
 			//fade out the text for a nice ending
 			Platform.runLater(() -> {

@@ -152,6 +152,7 @@ public class Player
 					t.setNode(playerSprite);
 					
 					t.setOnFinished((ActionEvent e) -> {
+//						setSpritePos(toX+100, toY+100);
 						synchronized(walkLock) { walkLock.notifyAll(); }
 					});
 					
@@ -180,6 +181,7 @@ public class Player
 						horz.setNode(setSprite(horzSprite));
 						horz.setInterpolator(Interpolator.LINEAR);
 						horz.setOnFinished((ActionEvent bar) -> {
+//							setSpritePos(toX+100, toY+100);
 							synchronized(walkLock) { walkLock.notifyAll(); }
 						});
 						
@@ -188,9 +190,10 @@ public class Player
 					
 					vert.play();
 				}
+				
 			});
 			synchronized(walkLock ) {
-				try { walkLock.wait(15000); } // 15 seconds should be long enough for pretty much any walk cycle
+				try { walkLock.wait(150000); } // 150 seconds should be long enough for pretty much any walk cycle
 				catch (InterruptedException e) { e.printStackTrace(); }
 			}
 			
